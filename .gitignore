@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+.pgdata/
+
+# Airflow
+airflow/logs/
+airflow/plugins/
+airflow/__pycache__/
+
+# VS Code
+.vscode/
+
+# Data
+data/*.csv
+data/*.txt
