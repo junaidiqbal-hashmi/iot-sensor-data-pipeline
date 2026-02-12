@@ -30,3 +30,4 @@ airflow/__pycache__/
 # Data
 data/*.csv
 data/*.txt
+*.parquet
