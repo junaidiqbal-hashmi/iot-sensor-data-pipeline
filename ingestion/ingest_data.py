@@ -1,11 +1,8 @@
 
+import click
 import pandas as pd
 from sqlalchemy import create_engine
 from tqdm.auto import tqdm
-
-
-df = pd.read_csv("data/sensor_logs.txt", names=["reading_time", "pump_id", "sensor_type", "value"])
-
 
 
 dtype = {
@@ -18,36 +15,20 @@ parse_dates = [
     "reading_time"
 ]
 
-df = pd.read_csv("data/sensor_logs.txt", names=["reading_time", "pump_id", "sensor_type", "value"],
-    dtype=dtype,
-    parse_dates=parse_dates
-)
-
-
-
-
-engine = create_engine(f'postgresql+psycopg://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
-
-
-print(pd.io.sql.get_schema(df, name='sensor_data', con=engine))
-
-
-
-df.head(0).to_sql(name='sensor_data', con=engine, if_exists='replace')
-
-
-def run():
-    pg_user = 'root'
-    pg_pass = 'root'
-    pg_host = 'localhost'
-    pg_port = 5432
-    pg_db = 'sensor'
-    chunksize = 100000
-    target_table = 'sensor_data'
-
-
+# engine = create_engine(f'postgresql+psycopg://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
+@click.command()
+@click.option('--pg-user', default='root', help='PostgreSQL user')
+@click.option('--pg-pass', default='root', help='PostgreSQL password')
+@click.option('--pg-host', default='localhost', help='PostgreSQL host')
+@click.option('--pg-port', default=5432, type=int, help='PostgreSQL port')
+@click.option('--pg-db', default='sensor', help='PostgreSQL database name')
+@click.option('--target-table', default='sensor_data', help='Target table name')
+@click.option('--chunksize', default=100000, type=int, help='Chunk size for reading CSV')
+def run(pg_user, pg_pass, pg_host, pg_port, pg_db, chunksize, target_table):
+    
+    engine = create_engine(f'postgresql+psycopg://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
     df_iter = pd.read_csv(
-        "data/sensor_logs.txt",
+        "/workspaces/iot-sensor-data-pipeline/data/sensor_logs.txt",
         names=["reading_time", "pump_id", "sensor_type", "value"],
         dtype=dtype,
         parse_dates=parse_dates,
@@ -69,6 +50,7 @@ def run():
                 con=engine,
                 if_exists='append'
         )
-
+if __name__ == '__main__':
+    run()
 
 
