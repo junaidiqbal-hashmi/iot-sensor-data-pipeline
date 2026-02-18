@@ -9,4 +9,4 @@ RUN uv sync --locked
 
 COPY ingestion ./ingestion
 
-ENTRYPOINT ["python", "-m" "ingestion.ingest_data"]
+ENTRYPOINT ["python", "-m", "ingestion.ingest_data"]
