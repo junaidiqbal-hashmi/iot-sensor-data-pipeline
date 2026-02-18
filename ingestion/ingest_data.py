@@ -24,11 +24,14 @@ parse_dates = [
 @click.option('--pg-db', default='sensor', help='PostgreSQL database name')
 @click.option('--target-table', default='sensor_data', help='Target table name')
 @click.option('--chunksize', default=100000, type=int, help='Chunk size for reading CSV')
-def run(pg_user, pg_pass, pg_host, pg_port, pg_db, chunksize, target_table):
+@click.option('--input-file', required=True, help='Path to input sensor log file')
+def run(pg_user, pg_pass, pg_host, pg_port, pg_db, chunksize, target_table, input_file):
     
+    print(f"Connecting to PostgreSQL at {pg_host}:{pg_port}")
+    print(f"Reading file: {input_file}")
     engine = create_engine(f'postgresql+psycopg://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
     df_iter = pd.read_csv(
-        "/workspaces/iot-sensor-data-pipeline/data/sensor_logs.txt",
+        input_file,
         names=["reading_time", "pump_id", "sensor_type", "value"],
         dtype=dtype,
         parse_dates=parse_dates,
