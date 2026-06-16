@@ -27,33 +27,44 @@ parse_dates = [
 @click.option('--input-file', required=True, help='Path to input sensor log file')
 def run(pg_user, pg_pass, pg_host, pg_port, pg_db, chunksize, target_table, input_file):
     
-    print(f"Connecting to PostgreSQL at {pg_host}:{pg_port}")
-    print(f"Reading file: {input_file}")
-    engine = create_engine(f'postgresql+psycopg://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
-    df_iter = pd.read_csv(
-        input_file,
-        names=["reading_time", "pump_id", "sensor_type", "value"],
-        dtype=dtype,
-        parse_dates=parse_dates,
-        iterator=True,
-        chunksize=chunksize
+    print("Starting Bronze ingestion...")
+    print(f"Source file: {input_file}")
+
+    engine = create_engine(
+        f'postgresql+psycopg://{pg_user}:{pg_pass}@'
+        f'{pg_host}:{pg_port}/{pg_db}'
     )
-    first = True
-    for df_chunk in tqdm(df_iter):
-        if first:
+
+    total_rows = 0
+
+    try:
+        df_iter = pd.read_csv(
+            input_file,
+            names=["reading_time", "pump_id",
+                   "sensor_type", "value"],
+            dtype=dtype,
+            parse_dates=parse_dates,
+            iterator=True,
+            chunksize=chunksize,
+        )
+
+        for df_chunk in tqdm(df_iter, desc="Loading chunks"):
+
             df_chunk.to_sql(
                 name=target_table,
                 con=engine,
-                if_exists='replace'
+                if_exists='append',
+                index=False,
             )
-            first = False
 
-        df_chunk.to_sql(
-                name=target_table,
-                con=engine,
-                if_exists='append'
-        )
+            total_rows += len(df_chunk)
+
+        print(f"Successfully loaded {total_rows:,} rows.")
+
+    finally:
+        engine.dispose()
+        print("Database connection closed.")
+
+
 if __name__ == '__main__':
     run()
-
-
