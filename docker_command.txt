@@ -1,0 +1,38 @@
+docker run -it \
+  -e POSTGRES_USER="root" \
+  -e POSTGRES_PASSWORD="root" \
+  -e POSTGRES_DB="sensor" \
+  -v sensor_data:/var/lib/postgresql \
+  -p 5432:5432 \
+  --network=pg-network \
+  --name pgdatabase \
+  postgres:18
+
+
+
+
+  docker run -it --rm \
+  --network=pg-network \
+  -v $(pwd)/data:/data \
+  sensor_ingest:v001 \
+  --pg-user=root \
+  --pg-pass=root \
+  --pg-host=pgdatabase \
+  --pg-port=5432 \
+  --pg-db=sensor \
+  --target-table=sensor_data \
+  --chunksize=100000 \
+  --input-file=/data/sensor_logs.txt
+
+  docker run -it --rm \
+  --network=pg-network \
+  -v $(pwd)/data:/data \
+  sensor_ingest:v002 \
+  --pg-user=root \
+  --pg-pass=root \
+  --pg-host=pgdatabase \
+  --pg-port=5432 \
+  --pg-db=sensor \
+  --target-table=bronze_sensor_logs \
+  --chunksize=100000 \
+  --input-file=/data/sensor_logs.txt
