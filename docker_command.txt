@@ -51,3 +51,12 @@ docker run -it \
   --target-table=bronze_sensor_logs \
   --chunksize=100000 \
   --input-file=/data/sensor_logs.txt
+
+
+  
+docker exec -it pgdatabase psql -U root -d sensor
+
+
+docker compose -f docker-compose.airflow.yml down
+
+docker compose -f docker-compose.airflow.yml up -d

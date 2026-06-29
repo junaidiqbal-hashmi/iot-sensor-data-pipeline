@@ -11,7 +11,7 @@ WITH baseline AS (
         AVG(mean_vibration) AS global_vibration_mean,
         STDDEV(mean_vibration) AS global_vibration_sd
 
-    FROM silver_pump_30min_agg
+    FROM silver_30min_agg
 
 )
 
@@ -113,5 +113,5 @@ SELECT
 
     END AS risk_level
 
-FROM silver_pump_30min_agg s
+FROM silver_30min_agg s
 CROSS JOIN baseline b;

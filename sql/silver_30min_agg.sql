@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS silver_pump_30min_agg;
+DROP TABLE IF EXISTS silver_30min_agg;
 
-CREATE TABLE silver_pump_30min_agg AS
+CREATE TABLE silver_30min_agg AS
 
 WITH temp_agg AS (
 
