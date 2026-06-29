@@ -34,3 +34,5 @@ data/*.txt
 *.parquet
 
 *.pyc
+# Jupyter
+.ipynb_checkpoints/
