@@ -31,12 +31,12 @@ Supabase
 Metabase Dashboard
 ```
 ## Technology Stack Used
-**Programming:** Python
-**Database:** PostgreSQL
-**Workflow:** Apache Airflow
-**Cloud Database:** Supabase
-**Visualization:** Metabase
-**Containerization:** Docker
-**Package Manager:** UV
-**Data Processing:** Pandas
-**SQL Engine:** PostgreSQL SQL
+- **Programming:** Python
+- **Database:** PostgreSQL
+- **Workflow:** Apache Airflow
+- **Cloud Database:** Supabase
+- **Visualization:** Metabase
+- **Containerization:** Docker
+- **Package Manager:** UV
+- **Data Processing:** Pandas
+- **SQL Engine:** PostgreSQL SQL
