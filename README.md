@@ -53,6 +53,12 @@ Metabase Dashboard
 **silver_temperature**
 | Column        | Data Type | Description              |
 |---------------|-----------|--------------------------|
-| timestamp     | TIMESTAMP | Sensor reading time |
+| timestamp     | TIMESTAMP | Sensor reading time      |
 | pump_id       | VARCHAR   | Pump identifier          |
-| temperature   | FLOAT     | Temperature value   |
+| temperature   | FLOAT     | Temperature value        |
+**silver_vibration**
+| Column        | Data Type | Description              |
+|---------------|-----------|--------------------------|
+| timestamp     | TIMESTAMP | Sensor reading time      |
+| pump_id       | VARCHAR   | Pump identifier          |
+| vibration     | FLOAT     | vibration value          |
