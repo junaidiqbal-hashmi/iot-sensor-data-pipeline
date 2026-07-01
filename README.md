@@ -11,5 +11,30 @@ Industrial IoT environments generate large volumes of sensor data continuously. 
 • Visualize business metrics using Metabase
 • Containerize the entire platform using Docker
 ## Project Architecture Overview
-### Architecture Diagram
 ![Architecture](images/architecture_diagram.png)
+## Data Flow
+Sensor Logs
+    ↓
+Python Ingestion
+    ↓
+PostgreSQL Bronze
+    ↓
+Apache Airflow
+    ↓
+Silver Layer
+    ↓
+Gold Layer
+    ↓
+Supabase
+    ↓
+Metabase Dashboard
+## Technology Stack Used
+**Programming:** Python
+**Database:** PostgreSQL
+**Workflow:** Apache Airflow
+**Cloud Database:** Supabase
+**Visualization:** Metabase
+**Containerization:** Docker
+**Package Manager:** UV
+**Data Processing:** Pandas
+**SQL Engine:** PostgreSQL SQL
