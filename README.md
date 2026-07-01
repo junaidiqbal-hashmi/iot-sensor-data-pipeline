@@ -40,3 +40,12 @@ Metabase Dashboard
 - **Package Manager:** UV
 - **Data Processing:** Pandas
 - **SQL Engine:** PostgreSQL SQL
+## Medallion Architecture
+### Bronze Layer
+**bronze_sensor_logs**
+| Column        | Data Type | Description              |
+|---------------|-----------|--------------------------|
+| timestamp     | TIMESTAMP | Sensor reading timestamp |
+| pump_id       | VARCHAR   | Pump identifier          |
+| sensor_type   | VARCHAR   | Temperature/Vibration    |
+| sensor_value  | FLOAT     | Actual sensor reading    |
