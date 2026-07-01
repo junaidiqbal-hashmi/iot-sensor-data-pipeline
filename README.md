@@ -13,7 +13,8 @@ Industrial IoT environments generate large volumes of sensor data continuously. 
 ## Project Architecture Overview
 ![Architecture](images/architecture_diagram.png)
 ## Data Flow
-```Sensor Logs 
+```
+Sensor Logs 
     ↓
 Python Ingestion
     ↓
