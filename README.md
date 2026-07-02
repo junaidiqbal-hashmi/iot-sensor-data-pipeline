@@ -89,3 +89,11 @@ Metabase Dashboard
 ### Workflow Orchestration
 ![Graph](images/airflow_graph_view.png)
 ![Grid](images/airflow_grid_view.png)
+### Cloud Integration
+```
+Local PostgreSQL
+       ↓
+Airflow PythonOperator
+       ↓
+Supabase PostgreSQL
+```
