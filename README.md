@@ -65,3 +65,27 @@ Metabase Dashboard
 | timestamp     | TIMESTAMP | Sensor reading time      |
 | pump_id       | VARCHAR   | Pump identifier          |
 | vibration     | FLOAT     | vibration value          |
+
+**silver_30min_agg**
+
+| Column              | Data Type | Description               |
+|---------------------|-----------|---------------------------|
+| window_start        | TIMESTAMP | Aggregation window        |
+| pump_id             | VARCHAR   | Pump identifier           |
+| avg_temperature     | FLOAT     | Average temperature       |
+| avg_vibration       | FLOAT     | Average vibration         |
+
+### Gold Layer
+
+**gold_pump_health**
+
+| Column              | Data Type | Description                |
+|---------------------|-----------|----------------------------|
+| pump_id             | VARCHAR   | Pump identifier            |
+| avg_temperature     | FLOAT     | Average temperature        |
+| avg_vibration       | FLOAT     | Average vibration          |
+| health_status       | VARCHAR   | Pump health classification |
+
+### Workflow Orchestration
+![Graph](images/airflow_graph_view.png)
+![Grid](images/airflow_grid_view.png)
